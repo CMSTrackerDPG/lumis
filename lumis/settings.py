@@ -25,7 +25,7 @@ SECRET_KEY = 'r#z=^x==b^+!j*uy4l%(y%aoit9c2+k1ia*v5vyd&^30#yza6m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lumis.web.cern.ch', '127.0.0.1']
 
 
 # Application definition
