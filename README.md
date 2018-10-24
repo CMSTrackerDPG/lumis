@@ -58,22 +58,32 @@ You can generate a secret key with web tools like [this](https://www.miniwebtool
 #### Option 1:
 
 Export DJANGO_SECRET_KEY environment variable
+
 ```
 DJANGO_SECRET_KEY=&ij2_mx6*jw)zkpzdkejcyw(d!e-xo%*)ljq*_ozqjh^p^5-!v
 ```
 
 #### Option 2 (recommended):
 
-Create a .env file containing the environment variables:
-```
+Create a ```.env``` file containing the environment variables
+
+```bash
 echo "DJANGO_SECRET_KEY=^4u&cx=kn24gjaw)(q2vw56tgnadyhok0!!pdjf38ndr5bajci" > .env
 ```
 
-Make sure that you never commit the .env file, so that your secret key is not revealed.
+Make sure that you never commit the ```.env``` file, so that your secret key is not revealed.
+
+### Collect static files
+
+```bash
+python manage.py collectstatic
+```
+
+Rerun this command whenever you make changes to static files.
 
 ### Run project
 
-```
+```bash
 python manage.py runserver
 ```
 
