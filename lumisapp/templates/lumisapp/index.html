@@ -12,9 +12,22 @@
 
     </style>
 </head>
-
 <body>
-<div id="content">{% block content %}
+
+<div id="content">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a type="button" class="btn" data-toggle="modal" data-target="#helpModal"><span class="glyphicon glyphicon-question-sign"></span> Help</a>
+                </li>
+                <li>
+                    <a href="https://github.com/ptrstn/lumis/issues"><span class="glyphicon glyphicon-exclamation-sign"></span> Report an issue</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <h1 class="text-center">Luminosity Sections</h1>
         <div class="well">
@@ -61,14 +74,44 @@
             </div>
         {% endif %}
 
-    {% if error %}
-        <div class="alert alert-danger">
-          <strong>Error!</strong> Your request caused an error. Please enter correct run numbers.
-        </div>
-    {% endif %}
+        {% if error %}
+            <div class="alert alert-danger">
+                <strong>Error!</strong> Your request caused an error. Please enter correct run numbers.
+            </div>
+        {% endif %}
     </div>
-{% endblock %}</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="helpModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Help</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        This page returns a list of luminosity sections in a JSON format.
+                    </p>
+                    <p>
+                        The output of this page is intended to be used as an input for <a href="https://cms-service-lumi.web.cern.ch/cms-service-lumi/brilwsdoc.html">brilcalc</a>.
+                        Currently, only the <b>Tracker</b> workspace of the Run Registry is used.
+                    </p>
+                    <p>
+                        If you have any problems or improvements feel free to create an <a href="https://github.com/ptrstn/lumis/issues">issue</a> on GitHub.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
 {% bootstrap_javascript jquery=1 %}
-{% block script %}{% endblock %}
 </body>
 </html>
