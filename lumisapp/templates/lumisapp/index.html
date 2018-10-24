@@ -102,6 +102,29 @@
                     <p>
                         If you have any problems or improvements feel free to create an <a href="https://github.com/ptrstn/lumis/issues">issue</a> on GitHub.
                     </p>
+                    <p>
+                    <h3>Brilcalc usage</h3>
+                    <p>
+                        The integrated luminosity can be calculated using brilcalc with the following command:
+                    <div class="well">
+                        brilcalc lumi -i &lt;json outpout&gt;
+                    </div>
+
+                    Example:
+
+                    <div class="well">
+                        brilcalc lumi -u /pb -i '{"323470": [[38, 172], [173, 175], [176, 218], [219, 222], [223, 266]], "323471": [[1, 238]]}'
+                    </div>
+
+                    <pre class="well">#Summary:
++-------+------+-----+------+-------------------+------------------+
+| nfill | nrun | nls | ncms | totdelivered(/pb) | totrecorded(/pb) |
++-------+------+-----+------+-------------------+------------------+
+| 1     | 2    | 467 | 460  | 170.872           | 159.210          |
++-------+------+-----+------+-------------------+------------------+</pre>
+
+                    </p>
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
