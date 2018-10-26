@@ -1,8 +1,6 @@
-import json
-
 from runregistry.client import RunRegistryClient
-from runregistry.tracker.utilities import build_dcs_query_string
-from runregistry.utilities import build_list_where_clause, build_range_where_clause
+from retriever.utilities import build_dcs_query_string
+from runregistry.utilities import build_range_where_clause
 
 
 def _convert_data_to_lumi_section_dict(data):

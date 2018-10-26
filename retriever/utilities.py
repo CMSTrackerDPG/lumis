@@ -1,22 +1,3 @@
-def transform_lowstat_to_boolean(list_of_run_dict):
-    """
-    Converts the low_stat properties of the list of run dictionaries into
-    a boolean form
-
-    True for low statistics
-    False for no low statistics
-
-    :param list_of_run_dict: list of runs (as dictionary)
-    :return: list_of_run_dict
-    """
-    components = ["pixel", "sistrip", "tracking"]
-    lowstat_components = ["{}_lowstat".format(component) for component in components]
-    for run in list_of_run_dict:
-        for component in lowstat_components:
-            run[component] = run[component] == "LOW_STATS"
-    return list_of_run_dict
-
-
 def build_dcs_query_string(dcs_list, table, logical_connector="and"):
     """
     Example:

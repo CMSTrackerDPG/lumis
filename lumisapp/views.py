@@ -5,7 +5,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic import TemplateView
 
-from runregistry.tracker.lumis import LumiSectionsRetriever
+from retriever.lumis import LumiSectionsRetriever
 
 
 class IndexView(TemplateView):
