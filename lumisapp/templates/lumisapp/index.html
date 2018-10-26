@@ -102,15 +102,17 @@
                     <p>
                         If you have any problems or improvements feel free to create an <a href="https://github.com/ptrstn/lumis/issues">issue</a> on GitHub.
                     </p>
-                    <p>
-                    <h3>Brilcalc usage</h3>
+                    <h4>Brilcalc usage</h4>
                     <p>
                         The integrated luminosity can be calculated using brilcalc with the following command:
+
                     <div class="well">
                         brilcalc lumi -i &lt;json outpout&gt;
                     </div>
+                    </p>
 
-                    Example:
+                    <p>
+                        Example:
 
                     <div class="well">
                         brilcalc lumi -u /pb -i '{"323470": [[38, 172], [173, 175], [176, 218], [219, 222], [223, 266]], "323471": [[1, 238]]}'
@@ -124,17 +126,37 @@
 +-------+------+-----+------+-------------------+------------------+</pre>
 
                     </p>
+
+                    <h4>How does it work</h4>
+
+                    <p>
+                        The JSON output is retrieved similar to the <a href="https://github.com/CMSTrackerDPG/CalculateLuminosity/blob/7d7a6e79dba726b4dbd888b4f4c9904d2f155a62/dataCertTRK.py">updated</a> version of the <a href="https://github.com/cms-DQM/certTools/blob/master/dataCert.py">dataCert.py</a> script.
+                        It accesses the RunRegistry via the <a href="https://github.com/valdasraps/resthub">resthub API</a> and then checks for following properties:
+                    <ul>
+                        <li>Tracker workspace</li>
+                        <li>Only <b>collisions</b> runs</li>
+                        <li>Only <b>prompt</b> reconstruction</li>
+                        <li>Following DCS components have to be on:
+                            <ul>
+                                <li>TIBTID</li>
+                                <li>TECM</li>
+                                <li>TECP</li>
+                                <li>TOB</li>
+                            </ul>
+                        </li>
+                    </ul>
                     </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
 
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
     </div>
 
 </div>
+
 {% bootstrap_javascript jquery=1 %}
 </body>
 </html>
