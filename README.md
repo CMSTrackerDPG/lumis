@@ -15,7 +15,7 @@ Following steps need to be done to develop on this project:
 
 ### Prerequisites
 
-- Python 3.5+
+- Python 3.5 or Python 3.6
 - Access to the CERN GPN 
 
 ### Clone the project
