@@ -3,9 +3,9 @@
 This tool creates a JSON output that can be used as input for [brilcalc](https://cms-service-lumi.web.cern.ch/cms-service-lumi/brilwsdoc.html).
 
 It does so by accessing the Tracker workspace of the Run Registry via a [custom Run Registry client](https://github.com/ptrstn/python-runregistryclient).
-The website is deployed using [OpenShift](http://information-technology.web.cern.ch/services/PaaS-Web-App) (CERN web services) and can be accessed via [http://lumis.web.cern.ch/](http://lumis.web.cern.ch/)
+The website is deployed using [OpenShift](http://information-technology.web.cern.ch/services/PaaS-Web-App) (CERN web services) and can be accessed via [http://lumis.web.cern.ch/](http://lumis.web.cern.ch/). 
 
-Currently, no other workspaces are supported. 
+Currently only the *Tracker* workspace is supported. 
 
 Feel free to contribute by creating [issues](https://github.com/ptrstn/lumis/issues) or [pull requests](https://github.com/ptrstn/lumis/pulls).
 
