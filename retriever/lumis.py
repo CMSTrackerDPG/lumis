@@ -57,10 +57,15 @@ class LumiSectionsRetriever:
         """
         Example:
         >>> retriever = LumiSectionsRetriever()
-        >>> retriever.get_json("323755", "324612")
+        >>> retriever.get_lumis("323840", "323842")
+        {323841: [[46, 54], [55, 57], [58, 60], [61, 133], [134, 135], [136, 143], [144, 510]]}
         """
         client = RunRegistryClient()
         where_clause = build_range_where_clause(run_min, run_max, "r.rdr_run_number")
         query = self._construct_query(where_clause, good_runs_only)
         response = client.execute_query(query)
         return _convert_data_to_lumi_section_dict(response["data"])
+
+    def get_dcs_off_runs(self, run_min, run_max):
+
+        pass
