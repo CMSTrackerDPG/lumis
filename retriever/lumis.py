@@ -108,7 +108,7 @@ class LumiSectionsRetriever:
 
         :param run_min: minimum run number
         :param run_max: maxinum run number
-        :return: list of run numbers with dcs flag off
+        :return: list of run numbers with dcs flags off for every lumisection
         """
         all_runs_query = self._construct_dcs_off_flag_query(run_min, run_max, True)
         dcs_on_runs_query = self._construct_dcs_off_flag_query(run_min, run_max, False)
@@ -120,4 +120,4 @@ class LumiSectionsRetriever:
         all_runs = [entry[0] for entry in all_runs_response]
         dcs_on_runs = [entry[0] for entry in dcs_on_runs_response]
 
-        return list(set(all_runs) - set(dcs_on_runs))
+        return sorted(list(set(all_runs) - set(dcs_on_runs)))
