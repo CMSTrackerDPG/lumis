@@ -159,4 +159,40 @@
 
 {% bootstrap_javascript jquery=1 %}
 </body>
+
+<script>
+    $(document).ready(function () {
+        populate_form_from_get_parameters();
+
+        /**
+         * Fills the form with URL parameters
+         */
+        function populate_form_from_get_parameters(){
+            const run_min = GetURLParameter("run_min");
+            const run_max = GetURLParameter("run_max");
+            $("#id_run_min").val(run_min);
+            $("#id_run_max").val(run_max);
+        }
+
+        /**
+         * Extracts a get parameter from the URL
+         *
+         * Credit: http://www.jquerybyexample.net/2012/06/get-url-parameters-using-jquery.html
+         * @return {string}
+         */
+        function GetURLParameter(sParam)
+        {
+            const sPageURL = window.location.search.substring(1);
+            const sURLVariables = sPageURL.split('&');
+            for (let i = 0; i < sURLVariables.length; i++)
+            {
+                const sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] === sParam)
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+    });
+</script>
 </html>
