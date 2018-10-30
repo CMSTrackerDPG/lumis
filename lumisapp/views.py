@@ -31,12 +31,18 @@ class IndexView(TemplateView):
                 good = json.dumps(good_lumis)
                 bad = json.dumps(bad_lumis)
 
+                dcs_off_runs = lumis.get_dcs_off_runs(run_min, run_max)
+
                 return render(
                     request,
                     self.template_name,
-                    {"all_lumis": all, "good_lumis": good, "bad_lumis": bad},
+                    {
+                        "all_lumis": all,
+                        "good_lumis": good,
+                        "bad_lumis": bad,
+                        "dcs_off": dcs_off_runs,
+                    },
                 )
             return render(request, self.template_name)
         except:
             return render(request, self.template_name, {"error": True})
-

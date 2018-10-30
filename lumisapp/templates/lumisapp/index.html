@@ -57,6 +57,12 @@
         </div>
     </div>
     <div class="container-fluid">
+        {% if dcs_off %}
+            <div class="alert alert-info">
+                <strong>DCS-off runs:</strong> {{ dcs_off|join:", " }}
+            </div>
+        {% endif %}
+
         {% if all_lumis %}
             <h2>All Lumisections</h2>
             <div class="well">
