@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["lumis.web.cern.ch", "127.0.0.1"]
 
 INSTALLED_APPS = [
     "lumisapp.apps.LumisappConfig",
+    "jsonapi.apps.JsonapiConfig",
     "bootstrap3",
     "django_tables2",
     "django.contrib.admin",
