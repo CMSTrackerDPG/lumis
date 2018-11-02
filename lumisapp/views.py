@@ -21,6 +21,7 @@ class IndexView(TemplateView):
 
                 all_lumis = lumis.get_lumis(run_min, run_max)
                 good_lumis = lumis.get_lumis(run_min, run_max, good_runs_only=True)
+                dcs_ignored_lumis = lumis.get_lumis(run_min, run_max, ignore_dcs=True)
 
                 bad_lumis = {}
                 for key, value in all_lumis.items():
@@ -30,6 +31,7 @@ class IndexView(TemplateView):
                 all = json.dumps(all_lumis)
                 good = json.dumps(good_lumis)
                 bad = json.dumps(bad_lumis)
+                dcs_ignored = json.dumps(dcs_ignored_lumis)
 
                 dcs_off_runs = lumis.get_dcs_off_runs(run_min, run_max)
 
@@ -40,6 +42,7 @@ class IndexView(TemplateView):
                         "all_lumis": all,
                         "good_lumis": good,
                         "bad_lumis": bad,
+                        "dcs_ignored": dcs_ignored,
                         "dcs_off": dcs_off_runs,
                     },
                 )

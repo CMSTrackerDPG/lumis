@@ -21,7 +21,9 @@ class LumiSectionsRetriever:
         self.dcs_list = ["Tibtid", "TecM", "TecP", "Tob"]
         self.runreg = RunRegistryClient()
 
-    def _construct_query(self, run_min, run_max, good_runs_only=False):
+    def _construct_query(
+        self, run_min, run_max, good_runs_only=False, ignore_dcs=False
+    ):
         query = (
             "select r.rdr_run_number, r.rdr_section_from, r.rdr_section_to "
             "from runreg_tracker.dataset_lumis r"
@@ -44,11 +46,14 @@ class LumiSectionsRetriever:
             )
 
         query += (
-            "and r.beam1_stable = 1 "
-            "and r.beam2_stable = 1 "
-            "and r.cms_active = 1 "
-            "and {} ".format(build_dcs_query_string(self.dcs_list, "r"))
-            + "and r.rdr_rda_name != '/Global/Online/ALL' "
+            "and r.beam1_stable = 1 " "and r.beam2_stable = 1 " "and r.cms_active = 1 "
+        )
+
+        if not ignore_dcs:
+            query += "and {} ".format(build_dcs_query_string(self.dcs_list, "r"))
+
+        query += (
+            "and r.rdr_rda_name != '/Global/Online/ALL' "
             "and r.rdr_rda_name like '%{}%' ".format(self.run_type)
             + "and r.rdr_rda_name like '%{}%' ".format(self.reco_type)
             + "order by r.rdr_run_number, r.rdr_rda_name, r.rdr_range"
@@ -82,14 +87,17 @@ class LumiSectionsRetriever:
 
         return query
 
-    def get_lumis(self, run_min, run_max, good_runs_only=False):
+    def get_lumis(self, run_min, run_max, good_runs_only=False, ignore_dcs=False):
         """
         Example:
         >>> retriever = LumiSectionsRetriever()
         >>> retriever.get_lumis("323840", "323842")
         {323841: [[46, 54], [55, 57], [58, 60], [61, 133], [134, 135], [136, 143], [144, 510]]}
+        >>> retriever.get_lumis("324078", "324078", ignore_dcs=True)
+        {324078: [[1, 707]]}
+
         """
-        query = self._construct_query(run_min, run_max, good_runs_only)
+        query = self._construct_query(run_min, run_max, good_runs_only, ignore_dcs)
         response = self.runreg.execute_query(query)
         return _convert_data_to_lumi_section_dict(response["data"])
 
