@@ -43,6 +43,17 @@
                             <input class="form-control" type="number" name="run_max" step="1" id="id_run_max" placeholder="Max" value="{{ request.GET.run_max }}">
                         </div>
                         <div class="col-sm-2">
+
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Shortcuts
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a id="id-current-year-link" href="#">Set to this year</a></li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -84,7 +95,7 @@
                 {{ dcs_ignored }}
             </div>
         {% endif %}
-    
+
         {% if error %}
             <div class="alert alert-danger">
                 <strong>Error!</strong> Your request caused an error. Please enter correct run numbers.
@@ -172,6 +183,18 @@
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
+
+        $('#id-current-year-link').click(function(){
+            $.ajax({
+                url: '/ajax/min-max/',
+                dataType: 'json',
+                success: function (data) {
+                    $("#id_run_min").val(data["min"]);
+                    $("#id_run_max").val(data["max"]);
+                }
+            });
+        });
+
     });
 </script>
 </body>

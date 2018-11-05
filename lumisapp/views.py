@@ -1,11 +1,14 @@
+import datetime
 import json
 
+from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import TemplateView
 
 from retriever.lumis import LumiSectionsRetriever
+from runreghelper.minmax import get_min_run_number, get_max_run_number
 
 
 class IndexView(TemplateView):
@@ -49,3 +52,10 @@ class IndexView(TemplateView):
             return render(request, self.template_name)
         except:
             return render(request, self.template_name, {"error": True})
+
+
+def get_min_max_run_number(request):
+    current_year = datetime.datetime.now().year
+    min_run = get_min_run_number(current_year)
+    max_run = get_max_run_number(current_year)
+    return JsonResponse({"min": min_run, "max": max_run})
