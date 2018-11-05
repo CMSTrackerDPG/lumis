@@ -31,9 +31,9 @@ class IndexView(TemplateView):
                     if key not in good_lumis:
                         bad_lumis[key] = value
 
-                all = json.dumps(all_lumis)
-                good = json.dumps(good_lumis)
-                bad = json.dumps(bad_lumis)
+                all = json.dumps(all_lumis, sort_keys=True)
+                good = json.dumps(good_lumis, sort_keys=True)
+                bad = json.dumps(bad_lumis, sort_keys=True)
                 dcs_ignored = json.dumps(dcs_ignored_lumis)
 
                 dcs_off_runs = lumis.get_dcs_off_runs(run_min, run_max)
