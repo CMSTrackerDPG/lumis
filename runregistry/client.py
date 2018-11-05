@@ -5,6 +5,7 @@ taken from https://github.com/ptrstn/python-runregistryclient
 """
 
 import logging
+import math
 from json import JSONDecodeError
 
 import requests
@@ -43,6 +44,7 @@ class RunRegistryClient(metaclass=Singleton):
     def __init__(self, url=DEFAULT_URL):
         self.url = url
         self._connection_successful = None  # Lazy
+        self.row_limit = 1000
 
     def _test_connection(self):
         try:
@@ -73,6 +75,16 @@ class RunRegistryClient(metaclass=Singleton):
             self.retry_connection()
         return self._connection_successful
 
+    def _get_count(self, query_id):
+        """
+        :param query_id: query id
+        :return: amount of rows that the query_id contains
+        """
+        if not self.connection_possible():
+            logger.error("Connection to {} not possible".format(self.url))
+            return 0
+        return requests.get("{}/query/{}/count".format(self.url, query_id)).json()
+
     def _get_json_response(self, resource, media_type=None):
         if not self.connection_possible():
             logger.error("Connection to {} not possible".format(self.url))
@@ -89,6 +101,23 @@ class RunRegistryClient(metaclass=Singleton):
         except JSONDecodeError as e:
             logger.error(e)
             return {}
+
+    def _get_paged_json_response(self, query_id):
+        """
+        Retrieves the response page-wise.
+
+        Necessary when the response has more than 1000 rows.
+        """
+        count = self._get_count(query_id)
+        number_of_pages = int(math.ceil(count / self.row_limit))
+        entries = {"data": []}
+
+        for page in range(0, number_of_pages):
+            resource = "/query/{}/page/{}/{}/data".format(query_id, self.row_limit, page + 1)
+            response = self._get_json_response(resource)
+            entries["data"].extend(response["data"])
+
+        return entries
 
     def _get_query_id(self, query):
         """
@@ -139,5 +168,9 @@ class RunRegistryClient(metaclass=Singleton):
             logger.error("Connection to {} not possible".format(self.url))
             return {}
         query_id = self._get_query_id(query)
-        resource = "/query/" + query_id + "/data"
-        return self._get_json_response(resource, media_type)
+        count = self._get_count(query_id)
+        if count > self.row_limit:
+            return self._get_paged_json_response(query_id)
+        else:
+            resource = "/query/" + query_id + "/data"
+            return self._get_json_response(resource, media_type)
