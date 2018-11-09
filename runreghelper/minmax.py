@@ -11,8 +11,9 @@ def _construct_min_max_query(year, run_type, min_max):
     return (
         "select {}(r.runnumber) as min_run "
         "from runreg_tracker.runs r "
-        "where r.RUN_CREATED > to_date('{}-01-01', 'YYYY-MM-DD') "
-        "and r.run_class_name  like '%{}%'".format(min_max, year, run_type)
+        "where r.RUN_CREATED >= to_date('{}-01-01', 'YYYY-MM-DD') "
+        "and r.RUN_CREATED < to_date('{}-01-01', 'YYYY-MM-DD') "
+        "and r.run_class_name  like '%{}%'".format(min_max, year, year + 1, run_type)
     )
 
 
@@ -28,6 +29,12 @@ def _get_min_max_run_number(year, run_type, min_max):
 
 def get_min_run_number(year, run_type="Collisions"):
     """
+    Example:
+    >>> get_min_run_number(2018)
+    314472
+    >>> get_min_run_number(2017)
+    294927
+
     :param year: Year of data taking
     :param run_type: Type of data taking (Collisions or Cosmics)
     :return: First run number of given year and run type
@@ -37,6 +44,12 @@ def get_min_run_number(year, run_type="Collisions"):
 
 def get_max_run_number(year, run_type="Collisions"):
     """
+    Example:
+    >>> get_max_run_number(2018)
+    326398
+    >>> get_max_run_number(2017)
+    307082
+
     :param year: Year of data taking
     :param run_type: Type of data taking (Collisions or Cosmics)
     :return: Last run number of given year and run type
