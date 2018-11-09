@@ -11,6 +11,28 @@
             margin-top: 15px;
         }
 
+        /* Credit https://stackoverflow.com/a/1964871/9907540 */
+        #ajax-loader {
+            display:    none;
+            position:   fixed;
+            z-index:    1000;
+            top:        0;
+            left:       0;
+            height:     100%;
+            width:      100%;
+            background: rgba( 255, 255, 255, .8 )
+            url('{% static "img/ajax-loader.gif" %}')
+            50% 50%
+            no-repeat;
+        }
+
+        body.loading #ajax-loader {
+            overflow: hidden;
+        }
+
+        body.loading #ajax-loader {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -178,6 +200,7 @@
         </div>
     </div>
 
+    <div class="modal" id="ajax-loader"></div>
 </div>
 
 {% bootstrap_javascript jquery=1 %}
@@ -196,6 +219,13 @@
             });
         });
 
+    });
+
+    $body = $("body");
+
+    $(document).on({
+        ajaxStart: function() { $body.addClass("loading");    },
+        ajaxStop: function() { $body.removeClass("loading"); }
     });
 </script>
 </body>
