@@ -1,4 +1,4 @@
-Django==1.11.22
+Django==1.11.29
 django-bootstrap3==11.0.0
 python-decouple==3.1
 django-tables2==1.21.2
